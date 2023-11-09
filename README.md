@@ -14,12 +14,12 @@ _By using the "Coinbase Verifications" service and accessing any attestation tha
 
 ### Base Goerli (Development)
 
-| Contract              | Description                                                                                                                                                                                                                                                                                                                 | Address (on Base)                                                                                                                        |
-|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| EAS                   | Stores, and manages attestations. See EAS' [docs](https://docs.attest.sh/docs/quick--start/quickstart) for more info.                                                                                                                                                                                                       | [0x4200000000000000000000000000000000000021](https://goerli.basescan.org/address/0x4200000000000000000000000000000000000021) (Predeploy) |
-| Schema Registry (EAS) | Stores schema definitions (templates for attestations). See EAS' [docs](https://docs.attest.sh/docs/quick--start/quickstart) for more info.                                                                                                                                                                                 | [0x4200000000000000000000000000000000000020](https://goerli.basescan.org/address/0x4200000000000000000000000000000000000020) (Predeploy) |
-| Coinbase Indexer      | All Coinbase attestations will be indexed in this contract.<br><br>You can query for the latest attestation ID by providing the attestation's recipient (address), and target schema ID (bytes32).<br><br>The actual attestation, and its data can be retrieved directly from EAS using the returned ID.                    | [0x1905E996C2246D7C188E312aDb65E27FBCC25e93](https://goerli.basescan.org/address/0x1905E996C2246D7C188E312aDb65E27FBCC25e93)             |
-| Coinbase Attester     | All Coinbase attestations will be issued from this contract / address.<br><br>You can use the address of this contract for verifying the origin of the attestation, though, verifying the schema ID should be sufficient in most cases as our schemas are protected such that only Coinbase permitted attesters may use it. | [0x97168a4E824687991C90523CAf2bc87EfD713A3C](https://goerli.basescan.org/address/0x97168a4E824687991C90523CAf2bc87EfD713A3C)             |
+| Contract              | Description                                                                                                                                                                                                                                                                                                                                                                                 | Address (on Base)                                                                                                                        |
+|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| EAS                   | Stores, and manages attestations. See EAS' [docs](https://docs.attest.sh/docs/quick--start/quickstart) for more info.                                                                                                                                                                                                                                                                       | [0x4200000000000000000000000000000000000021](https://goerli.basescan.org/address/0x4200000000000000000000000000000000000021) (Predeploy) |
+| Schema Registry (EAS) | Stores schema definitions (templates for attestations). See EAS' [docs](https://docs.attest.sh/docs/quick--start/quickstart) for more info.                                                                                                                                                                                                                                                 | [0x4200000000000000000000000000000000000020](https://goerli.basescan.org/address/0x4200000000000000000000000000000000000020) (Predeploy) |
+| Coinbase Indexer      | All Coinbase attestations will be indexed in this contract.<br><br>You can query for the latest attestation ID by providing the attestation's recipient (address), and target schema ID (bytes32). See [below](#build-with-coinbase-verifications) for details on the full interface.<br><br>The actual attestation, and its data can be retrieved directly from EAS using the returned ID. | [0x1905E996C2246D7C188E312aDb65E27FBCC25e93](https://goerli.basescan.org/address/0x1905E996C2246D7C188E312aDb65E27FBCC25e93)             |
+| Coinbase Attester     | All Coinbase attestations will be issued from this contract / address.<br><br>You can use the address of this contract for verifying the origin of the attestation, though, verifying the schema ID should be sufficient in most cases as our schemas are protected such that only Coinbase permitted attesters may use it.                                                                 | [0x97168a4E824687991C90523CAf2bc87EfD713A3C](https://goerli.basescan.org/address/0x97168a4E824687991C90523CAf2bc87EfD713A3C)             |
 
 ### Base Sepolia (Development)
 
@@ -66,4 +66,20 @@ _See previous section for description._
 
 ### Base Contracts
 
-_Will be added to this repository soon._
+To get started with our base contracts using [Foundry](https://github.com/foundry-rs/foundry):
+
+```sh
+forge install coinbase/verifications
+```
+
+| Contract | Description |
+|---|---|
+| `src/abstracts/AttestationAccessControl.sol` | An abstract contract for managing access to a contract's functions using attestations. It is also an example of how you can use our [indexer](#contracts), `IAttestationIndexer`. |
+| `src/interfaces/IAttestationIndexer.sol` | The interface implemented by the [Coinbase Indexer](#contracts). You can use this to ease making contract-to-contract calls to our indexer or to generate an ABI for interacting with our indexer offchain. |
+| `src/libraries/AttestationErrors.sol` | Common errors which may be returned from our attestation verifier library. |
+| `src/libraries/AttestationVerifier.sol` | A simple library for verifying any EAS attestation. |
+| `src/libraries/Predeploys.sol` | Common predeploy addresses on OP Stack, e.g. EAS, Schema Registry. |
+
+### Examples
+
+_Coming soon._
