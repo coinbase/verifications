@@ -1,6 +1,6 @@
 # Coinbase Verifications
 
-"Coinbase Verifications" is a set of Coinbase-verified onchain attestations that enable access to apps and other onchain benefits. Our implementation is Ethereum-aligned by leveraging [Ethereum Attestation Service ("EAS")](https://attest.sh/), an open-source public good that is included as a predeploy in the OP Stack.
+"Coinbase Verifications" is a set of Coinbase-verified onchain attestations that enable access to apps and other onchain benefits. Our implementation is built to further the broader onchain ecosystem by leveraging [Ethereum Attestation Service ("EAS")](https://attest.sh/), an open-source public good that is included as a predeploy in the OP Stack. 
 
 **Onchain is the next online.** This repository is intended for builders looking to integrate our attestations.
 
