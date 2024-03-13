@@ -23,6 +23,11 @@ library AttestationVerifier {
      * @param attestation Full EAS attestation to verify.
      */
     function verifyAttestation(Attestation memory attestation) internal view {
+        // Attestation must exist.
+        if (attestation.uid == 0) {
+            revert AttestationNotFound();
+        }
+
         _verifyAttestation(attestation);
     }
 
@@ -39,6 +44,10 @@ library AttestationVerifier {
      * @param schemaUid Unique identifier of the expected schema.
      */
     function verifyAttestation(Attestation memory attestation, address recipient, bytes32 schemaUid) internal view {
+        // Attestation must exist.
+        if (attestation.uid == 0) {
+            revert AttestationNotFound();
+        }
         // Attestation being checked must be for the expected recipient.
         if (attestation.recipient != recipient) {
             revert AttestationRecipientMismatch(attestation.recipient, recipient);
@@ -52,11 +61,6 @@ library AttestationVerifier {
     }
 
     function _verifyAttestation(Attestation memory attestation) private view {
-        // Attestation must exist.
-        if (attestation.uid == 0) {
-            revert AttestationNotFound();
-        }
-
         // Attestation must not be expired.
         if (attestation.expirationTime != 0 && attestation.expirationTime <= block.timestamp) {
             revert AttestationExpired(attestation.uid, attestation.expirationTime);
