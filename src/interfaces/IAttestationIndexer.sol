@@ -16,7 +16,7 @@ interface IAttestationIndexer {
     /**
      * @notice Retrieves an EAS attestation unique identifier by the recipient and schema.
      * @dev Intended for guarded / permissioned EAS schemas.
-     * That is, any attesters / issuer of attestations for a specific schema are trusted
+     * That is, any attesters / issuers of attestations for a specific schema are trusted
      * because the schema is protected by a resolver.
      *
      * The attestation unique identifier can be used to retrieve the
