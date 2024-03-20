@@ -48,7 +48,6 @@ library AttestationVerifier {
         if (attestation.uid == 0) {
             revert AttestationNotFound();
         }
-
         // Attestation being checked must be for the expected recipient.
         if (attestation.recipient != recipient) {
             revert AttestationRecipientMismatch(attestation.recipient, recipient);
